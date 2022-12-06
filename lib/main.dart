@@ -1,6 +1,9 @@
+import 'package:data/data.dart';
 import 'package:flutter/material.dart';
+import 'package:repository_overview/repository_overview.dart';
 
 void main() {
+  preLaunchSetup();
   runApp(const MyApp());
 }
 
@@ -14,6 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      home: OverviewScreen(),
     );
   }
 }

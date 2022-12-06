@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.multiple_repository">
+
+   <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="multiple_repository"
         android:name="${applicationName}"
