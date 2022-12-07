@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:core_ui/core_ui.dart';
 import 'package:domain/domain.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:repository_details/repository_details.dart';
 
 class RepostoriestList extends StatelessWidget {
   const RepostoriestList({
@@ -47,36 +47,53 @@ class RepostoriestList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => DetailsScreen(
+              user: item,
+            ),
+          ),
+        );
+      },
       child: Card(
         elevation: 5,
         child: Container(
           height: AppDimension.cardHeight,
           width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: <Widget>[
-              Text(
-                getFullName(item),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    width: 70,
-                    height: 70,
-                    child: getImage(item),
+          child: Padding(
+            padding: AppDimension.cardsPading,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: 70,
+                  height: 70,
+                  child: getImage(item),
+                ),
+                SizedBox(
+                  width: AppDimension.rowPadding,
+                ),
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        getFullName(item),
+                      ),
+                      Text(
+                        'source: ${item.source}',
+                      ),
+                      const SizedBox(height: AppDimension.smallIndent),
+                      Text(
+                        getDescription(item),
+                      ),
+                    ],
                   ),
-                  Text(
-                    getFullName(item),
-                  )
-                ],
-              ),
-              const SizedBox(height: AppDimension.smallIndent),
-              Text(
-                getDescription(item),
-                textAlign: TextAlign.center,
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -30,23 +30,21 @@ class _OverviewWidgetState extends State<OverviewWidget> {
       },
       builder: (BuildContext context, OverviewState state) {
         if (state is OverviewLoaded) {
-          return Scaffold(
-            body: RefreshIndicator(
-              onRefresh: () async {
-                final Future<OverviewState> bloc =
-                    context.read<OverviewBloc>().stream.first;
-                BlocProvider.of<OverviewBloc>(context).add(GetData());
-                await bloc;
+          return RefreshIndicator(
+            onRefresh: () async {
+              final Future<OverviewState> bloc =
+                  context.read<OverviewBloc>().stream.first;
+              BlocProvider.of<OverviewBloc>(context).add(GetData());
+              await bloc;
+            },
+            child: ListView.builder(
+              controller: _scrollController,
+              itemCount: state.usersData.length,
+              itemBuilder: (BuildContext context, int index) {
+                return RepostoriestList(
+                  item: state.usersData[index],
+                );
               },
-              child: ListView.builder(
-                controller: _scrollController,
-                itemCount: state.usersData.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return RepostoriestList(
-                    item: state.usersData[index],
-                  );
-                },
-              ),
             ),
           );
         }

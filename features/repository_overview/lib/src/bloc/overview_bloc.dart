@@ -7,7 +7,7 @@ part 'overview_state.dart';
 class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
   final GetGitHubDataUsecase getDataUsecase;
   final GetBitbucketDataUseCase getBitbucketDataUseCase;
-
+  final String errorMessage = 'something went wrong';
   OverviewBloc({
     required this.getBitbucketDataUseCase,
     required this.getDataUsecase,
@@ -42,7 +42,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
     } catch (e) {
       emit(
         Error(
-          errorMessage: e.toString(),
+          errorMessage: errorMessage,
         ),
       );
     }

@@ -1,13 +1,13 @@
 import 'dart:convert';
+import 'package:data/src/http_provider/apis.dart';
 import 'package:domain/domain.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart';
 
 class HttpProvider {
   Future<List<User>> getBitbucketData() async {
     try {
       final Response response = await get(
-        Uri.parse('https://api.bitbucket.org/2.0/repositories?'),
+        Uri.parse(Apis.bitbucketUrl),
       );
       final String userData = response.body;
       final dynamic userMap = jsonDecode(userData)['values'];
@@ -26,7 +26,7 @@ class HttpProvider {
   Future<List<User>> getGithubData() async {
     try {
       final Response response = await get(
-        Uri.parse('https://api.github.com/repositories?'),
+        Uri.parse(Apis.githubUrl),
       );
       final String githubData = response.body;
       final dynamic userMap = jsonDecode(githubData);

@@ -6,6 +6,7 @@ class User {
     required this.description,
     required this.url,
     required this.languagesUrl,
+    required this.source,
   });
 
   final dynamic id;
@@ -13,6 +14,7 @@ class User {
   final String? fullName;
   final String? avatarUrl;
   final String? url;
+  final String? source;
   final String? description;
 
   factory User.fromGithub(Map<String, dynamic> json) {
@@ -21,7 +23,8 @@ class User {
       id: json['id'] as int,
       fullName: json['fullName'] as String?,
       description: json['description'] as String?,
-      url: 'GitHub',
+      url: json['owner']['html_url'] as String?,
+      source: 'GitHub',
       languagesUrl: json['languagesUrl'] as String?,
     );
   }
@@ -32,7 +35,8 @@ class User {
         id: json['uuid'],
         fullName: json['owner']['display_name'] as String?,
         description: json['description'] as String?,
-        url: 'Bitbucked',
+        url: json['owner']['links']['html']['href'] as String?,
+        source: 'BitBucked',
         languagesUrl: json['language'] as String?);
   }
 }
