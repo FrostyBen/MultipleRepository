@@ -21,7 +21,7 @@ class User {
     return User(
       avatarUrl: json['owner']['avatar_url'] as String?,
       id: json['id'] as int,
-      fullName: json['fullName'] as String?,
+      fullName: json['name'] as String?,
       description: json['description'] as String?,
       url: json['owner']['html_url'] as String?,
       source: 'GitHub',
@@ -33,7 +33,7 @@ class User {
     return User(
         avatarUrl: json['owner']['links']['avatar']['href'] as String?,
         id: json['uuid'],
-        fullName: json['owner']['display_name'] as String?,
+        fullName: json['full_name'] as String?,
         description: json['description'] as String?,
         url: json['owner']['links']['html']['href'] as String?,
         source: 'BitBucked',

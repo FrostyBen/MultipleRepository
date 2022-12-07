@@ -6,14 +6,14 @@ import 'package:repository_details/repository_details.dart';
 import '../widgets/details_widget.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({required this.user, super.key});
-  final User user;
+  const DetailsScreen({this.user, super.key});
+  final User? user;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => DetailsBloc()
         ..add(
-          GetDetails(user: user),
+          GetDetails(user: user!),
         ),
       child: Scaffold(
         appBar: AppBar(

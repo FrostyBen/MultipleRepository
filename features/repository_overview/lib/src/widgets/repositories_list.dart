@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:core_ui/core_ui.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
@@ -51,10 +50,9 @@ class RepostoriestList extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => DetailsScreen(
-              user: item,
-            ),
-          ),
+              builder: (BuildContext context) => DetailsScreen(
+                    user: item,
+                  )),
         );
       },
       child: Card(

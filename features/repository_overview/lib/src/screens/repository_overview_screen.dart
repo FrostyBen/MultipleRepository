@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:repository_overview/src/widgets/app_bar.dart';
 import 'package:repository_overview/src/widgets/overview_widget.dart';
 
 import '../bloc/overview_bloc.dart';
@@ -19,7 +20,9 @@ class OverviewScreen extends StatelessWidget {
           GetData(),
         ),
       child: Scaffold(
-        appBar: AppBar(title: Text('Overview')),
+        appBar: AppBarWidget(
+          preferredSize: Size.fromHeight(56),
+        ),
         body: OverviewWidget(),
       ),
     );
