@@ -11,10 +11,13 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
   OverviewBloc({
     required this.getBitbucketDataUseCase,
     required this.getDataUsecase,
-  }) : super(OverviewState(
+  }) : super(
+          OverviewState(
             usersData: <User>[],
             isSortedAlphabetic: false,
-            isSortedBySource: false)) {
+            isSortedBySource: false,
+          ),
+        ) {
     on<GetData>(_getData);
     on<AlphabeticSort>(_alphabeticSort);
     on<SourceSort>(_sourceSort);
@@ -25,11 +28,11 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
     final List<User> sourceSort = state.usersData;
     if (isSort) {
       sourceSort.sort(
-        (User a, User b) => a.source!.compareTo(b.source!),
+        (User a, User b) => a.source.compareTo(b.source),
       );
     } else {
       sourceSort.sort(
-        (User a, User b) => b.source!.compareTo(a.source!),
+        (User a, User b) => b.source.compareTo(a.source),
       );
     }
     emit(
@@ -46,11 +49,11 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
     final List<User> alphabeticList = state.usersData;
     if (isSort) {
       alphabeticList.sort(
-        (User a, User b) => a.fullName!.compareTo(b.fullName!),
+        (User a, User b) => a.fullName.compareTo(b.fullName),
       );
     } else {
       alphabeticList.sort(
-        (User a, User b) => b.fullName!.compareTo(a.fullName!),
+        (User a, User b) => b.fullName.compareTo(a.fullName),
       );
     }
     emit(
@@ -68,7 +71,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
       late List<User> gitHubData;
 
       await Future.wait(
-        [
+        <Future<dynamic>>[
           (() async {
             bitbucketData = await getBitbucketDataUseCase.execute(NoParams());
           })(),
@@ -80,13 +83,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
 
       final List<User> usersData = List<User>.from(bitbucketData)
         ..addAll(gitHubData);
-      emit(
-        Loading(
-          isSortedAlphabetic: state.isSortedAlphabetic,
-          usersData: state.usersData,
-          isSortedBySource: state.isSortedBySource,
-        ),
-      );
+
       emit(
         OverviewState(
           usersData: usersData,

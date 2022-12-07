@@ -5,43 +5,11 @@ import 'package:repository_details/repository_details.dart';
 
 class RepostoriestList extends StatelessWidget {
   const RepostoriestList({
-    required this.item,
+    required this.user,
     Key? key,
   }) : super(key: key);
 
-  final User item;
-
-  String getDescription(User item) {
-    if (item.description == null || item.description == '') {
-      return 'no description has been added yet';
-    } else {
-      return item.description!;
-    }
-  }
-
-  String getFullName(User item) {
-    if (item.fullName == null || item.fullName == '') {
-      return 'name: unknown';
-    } else {
-      return 'name: ${item.fullName}';
-    }
-  }
-
-  Image getImage(User item) {
-    if (item.avatarUrl == null) {
-      return Image.asset('../../assets/question.jpg');
-    } else {
-      return Image.network(item.avatarUrl!);
-    }
-  }
-
-  String getName(User item) {
-    if (item.fullName == null || item.fullName == '') {
-      return 'name: unknown';
-    } else {
-      return item.fullName!;
-    }
-  }
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +17,9 @@ class RepostoriestList extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<dynamic>(
             builder: (BuildContext context) => DetailsScreen(
-              user: item,
+              user: user,
             ),
           ),
         );
@@ -61,38 +29,36 @@ class RepostoriestList extends StatelessWidget {
         child: Container(
           height: AppDimension.cardHeight,
           width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: AppDimension.cardsPading,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  width: 70,
-                  height: 70,
-                  child: getImage(item),
+          padding: AppDimension.cardsPading,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: AppDimension.imageSize,
+                height: AppDimension.imageSize,
+                child: Image.network(user.avatarUrl),
+              ),
+              SizedBox(
+                width: AppDimension.rowPadding,
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      user.name,
+                    ),
+                    Text(
+                      'source: ${user.source}',
+                    ),
+                    const SizedBox(height: AppDimension.smallIndent),
+                    Text(
+                      user.descriptions,
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: AppDimension.rowPadding,
-                ),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        getFullName(item),
-                      ),
-                      Text(
-                        'source: ${item.source}',
-                      ),
-                      const SizedBox(height: AppDimension.smallIndent),
-                      Text(
-                        getDescription(item),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -6,4 +6,5 @@ class AppDimension {
   static const EdgeInsets cardsPading = EdgeInsets.fromLTRB(15, 15, 15, 5);
   static const double midIndent = 40;
   static const double rowPadding = 10;
+  static const double imageSize = 70;
 }

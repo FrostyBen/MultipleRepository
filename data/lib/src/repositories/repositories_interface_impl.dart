@@ -1,4 +1,3 @@
-import 'package:data/data.dart';
 import 'package:data/src/http_provider/http_provider.dart';
 import 'package:domain/domain.dart';
 

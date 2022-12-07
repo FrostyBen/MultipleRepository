@@ -23,10 +23,3 @@ class Error extends OverviewState {
             isSortedAlphabetic: isSortedAlphabetic,
             isSortedBySource: isSortedBySource);
 }
-
-class Loading extends OverviewState {
-  Loading(
-      {required super.isSortedAlphabetic,
-      required super.usersData,
-      required super.isSortedBySource});
-}

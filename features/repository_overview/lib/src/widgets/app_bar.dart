@@ -15,7 +15,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       builder: (BuildContext context, OverviewState state) {
         return AppBar(
           title: Text('Overview'),
-          actions: [
+          actions: <Widget>[
             IconButton(
               onPressed: () {
                 context.read<OverviewBloc>().add(
