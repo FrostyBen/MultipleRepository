@@ -1,3 +1,4 @@
 class AppDimension {
-  static const int smallIndent = 20;
+  static const double smallIndent = 20;
+  static const double cardHeight = 170;
 }

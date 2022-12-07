@@ -10,7 +10,7 @@ class HttpProvider {
         Uri.parse('https://api.bitbucket.org/2.0/repositories?'),
       );
       final String userData = response.body;
-      final userMap = jsonDecode(userData)['values'];
+      final dynamic userMap = jsonDecode(userData)['values'];
       final List<User> usersList = (userMap as List<dynamic>)
           .map(
             (e) => User.fromBitbucket(e as Map<String, dynamic>),
@@ -29,7 +29,7 @@ class HttpProvider {
         Uri.parse('https://api.github.com/repositories?'),
       );
       final String githubData = response.body;
-      final userMap = jsonDecode(githubData);
+      final dynamic userMap = jsonDecode(githubData);
       final List<User> usersList = (userMap as List<dynamic>)
           .map(
             (e) => User.fromGithub(e as Map<String, dynamic>),

@@ -7,35 +7,44 @@ part 'overview_state.dart';
 class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
   final GetGitHubDataUsecase getDataUsecase;
   final GetBitbucketDataUseCase getBitbucketDataUseCase;
+
   OverviewBloc({
     required this.getBitbucketDataUseCase,
     required this.getDataUsecase,
   }) : super(OverviewState()) {
-    on<GetData>(
-      (GetData event, Emitter<OverviewState> emit) async {
-        late List<User> bitbucketData;
-        late List<User> gitHubData;
+    on<GetData>(_getData);
+  }
 
-        await Future.wait(
-          [
-            (() async {
-              bitbucketData = await getBitbucketDataUseCase.execute(NoParams());
-            })(),
-            (() async {
-              gitHubData = await getDataUsecase.execute(NoParams());
-            })(),
-          ].toList(),
-        );
+  Future<void> _getData(GetData event, Emitter<OverviewState> emit) async {
+    try {
+      late List<User> bitbucketData;
+      late List<User> gitHubData;
 
-        final List<User> usersData = List<User>.from(bitbucketData)
-          ..addAll(gitHubData);
+      await Future.wait(
+        [
+          (() async {
+            bitbucketData = await getBitbucketDataUseCase.execute(NoParams());
+          })(),
+          (() async {
+            gitHubData = await getDataUsecase.execute(NoParams());
+          })(),
+        ].toList(),
+      );
 
-        emit(
-          OverviewLoaded(
-            usersData: usersData,
-          ),
-        );
-      },
-    );
+      final List<User> usersData = List<User>.from(bitbucketData)
+        ..addAll(gitHubData);
+
+      emit(
+        OverviewLoaded(
+          usersData: usersData,
+        ),
+      );
+    } catch (e) {
+      emit(
+        Error(
+          errorMessage: e.toString(),
+        ),
+      );
+    }
   }
 }

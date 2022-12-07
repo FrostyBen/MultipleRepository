@@ -6,7 +6,9 @@ import 'package:get_it/get_it.dart';
 GetIt locator = GetIt.instance;
 
 void preLaunchSetup() {
-  locator.registerLazySingleton(() => HttpProvider());
+  locator.registerLazySingleton(
+    () => HttpProvider(),
+  );
   locator.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(
       remoteDataSource: locator.get<HttpProvider>(),

@@ -9,3 +9,9 @@ class OverviewLoaded extends OverviewState {
     required this.usersData,
   });
 }
+
+class Error extends OverviewState {
+  final String errorMessage;
+
+  Error({required this.errorMessage});
+}

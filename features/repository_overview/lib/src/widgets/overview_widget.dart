@@ -16,7 +16,18 @@ class _OverviewWidgetState extends State<OverviewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OverviewBloc, OverviewState>(
+    return BlocConsumer<OverviewBloc, OverviewState>(
+      listener: (BuildContext context, OverviewState state) {
+        if (state is Error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.errorMessage,
+              ),
+            ),
+          );
+        }
+      },
       builder: (BuildContext context, OverviewState state) {
         if (state is OverviewLoaded) {
           return Scaffold(
@@ -30,7 +41,7 @@ class _OverviewWidgetState extends State<OverviewWidget> {
               child: ListView.builder(
                 controller: _scrollController,
                 itemCount: state.usersData.length,
-                itemBuilder: (context, index) {
+                itemBuilder: (BuildContext context, int index) {
                   return RepostoriestList(
                     item: state.usersData[index],
                   );
