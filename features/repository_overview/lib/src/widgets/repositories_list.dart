@@ -50,9 +50,10 @@ class RepostoriestList extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (BuildContext context) => DetailsScreen(
-                    user: item,
-                  )),
+            builder: (BuildContext context) => DetailsScreen(
+              user: item,
+            ),
+          ),
         );
       },
       child: Card(

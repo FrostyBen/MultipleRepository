@@ -19,7 +19,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             IconButton(
               onPressed: () {
                 context.read<OverviewBloc>().add(
-                      SourceSort(isSortbysource: state.isSortedBySource),
+                      SourceSort(
+                        isSortbysource: state.isSortedBySource,
+                      ),
                     );
               },
               icon: Icon(Icons.source),
