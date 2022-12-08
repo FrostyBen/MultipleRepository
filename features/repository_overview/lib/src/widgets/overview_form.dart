@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repository_overview/src/bloc/overview_bloc.dart';
-import 'package:repository_overview/src/widgets/app_bar.dart';
+import 'package:repository_overview/src/widgets/app_bar_widget.dart';
 import 'package:repository_overview/src/widgets/repositories_list.dart';
 
 class OverviewForm extends StatefulWidget {
@@ -14,6 +14,12 @@ class OverviewForm extends StatefulWidget {
 
 class _OverviewFormState extends State<OverviewForm> {
   final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

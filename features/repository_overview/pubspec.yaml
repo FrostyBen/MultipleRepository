@@ -22,7 +22,7 @@ dependencies:
     path: ../../core_ui
   repository_details:
     path: ../repository_details
-  
+ 
 dev_dependencies:
   flutter_test:
     sdk: flutter

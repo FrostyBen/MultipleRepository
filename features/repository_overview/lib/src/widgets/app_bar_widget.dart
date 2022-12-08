@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repository_overview/src/bloc/overview_bloc.dart';
 
@@ -14,7 +13,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     return BlocBuilder<OverviewBloc, OverviewState>(
       builder: (BuildContext context, OverviewState state) {
         return AppBar(
-          title: Text('Overview'),
+          title: TextField(
+            onChanged: (String value) => context.read<OverviewBloc>().add(
+                  Filter(input: value),
+                ),
+            decoration: InputDecoration(
+              hintText: 'here you can filter repos by name',
+            ),
+          ),
           actions: <Widget>[
             IconButton(
               onPressed: () {

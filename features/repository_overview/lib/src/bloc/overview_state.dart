@@ -4,8 +4,10 @@ class OverviewState {
   final List<User> usersData;
   final bool isSortedAlphabetic;
   final bool isSortedBySource;
+  final List<User> backupList;
   OverviewState(
-      {required this.isSortedBySource,
+      {required this.backupList,
+      required this.isSortedBySource,
       required this.isSortedAlphabetic,
       required this.usersData});
 }
@@ -13,12 +15,14 @@ class OverviewState {
 class Error extends OverviewState {
   final String errorMessage;
 
-  Error({
-    required this.errorMessage,
-    required List<User> usersData,
-    required bool isSortedAlphabetic,
-    required bool isSortedBySource,
-  }) : super(
+  Error(
+      {required this.errorMessage,
+      required List<User> usersData,
+      required bool isSortedAlphabetic,
+      required bool isSortedBySource,
+      required List<User> backUpList})
+      : super(
+            backupList: backUpList,
             usersData: usersData,
             isSortedAlphabetic: isSortedAlphabetic,
             isSortedBySource: isSortedBySource);

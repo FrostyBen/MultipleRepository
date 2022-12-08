@@ -7,7 +7,7 @@ class GetBitbucketDataUseCase implements UseCase<List<User>, NoParams> {
   GetBitbucketDataUseCase({required this.repository});
 
   @override
-  Future<List<User>> execute(NoParams params) {
-    return repository.getBitbucketData();
+  Future<List<User>> execute(NoParams params) async {
+    return await repository.getBitbucketData();
   }
 }

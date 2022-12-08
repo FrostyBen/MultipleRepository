@@ -15,3 +15,9 @@ class SourceSort extends OverviewEvent {
 
   SourceSort({required this.isSortbysource});
 }
+
+class Filter extends OverviewEvent {
+  final String input;
+
+  Filter({required this.input});
+}

@@ -16,11 +16,37 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
             usersData: <User>[],
             isSortedAlphabetic: false,
             isSortedBySource: false,
+            backupList: <User>[],
           ),
         ) {
     on<GetData>(_getData);
     on<AlphabeticSort>(_alphabeticSort);
     on<SourceSort>(_sourceSort);
+    on<Filter>(_filter);
+  }
+
+  void _filter(Filter event, Emitter<OverviewState> emit) {
+    List<User> result = <User>[];
+    if (event.input.isNotEmpty) {
+      result = state.usersData
+          .where(
+            (User user) => (user.name).toLowerCase().contains(
+                  event.input.toLowerCase(),
+                ),
+          )
+          .toList();
+    } else {
+      result = state.backupList;
+    }
+
+    emit(
+      OverviewState(
+        isSortedBySource: state.isSortedBySource,
+        isSortedAlphabetic: state.isSortedAlphabetic,
+        usersData: result,
+        backupList: state.backupList,
+      ),
+    );
   }
 
   void _sourceSort(SourceSort event, Emitter<OverviewState> emit) {
@@ -40,6 +66,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
         isSortedBySource: isSort,
         isSortedAlphabetic: state.isSortedAlphabetic,
         usersData: state.usersData,
+        backupList: state.backupList,
       ),
     );
   }
@@ -61,6 +88,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
         usersData: alphabeticList,
         isSortedAlphabetic: isSort,
         isSortedBySource: state.isSortedBySource,
+        backupList: state.backupList,
       ),
     );
   }
@@ -83,12 +111,14 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
 
       final List<User> usersData = List<User>.from(bitbucketData)
         ..addAll(gitHubData);
-
+      final List<User> backuplist = List<User>.from(bitbucketData)
+        ..addAll(gitHubData);
       emit(
         OverviewState(
           usersData: usersData,
           isSortedAlphabetic: state.isSortedAlphabetic,
           isSortedBySource: state.isSortedBySource,
+          backupList: backuplist,
         ),
       );
     } catch (e) {
@@ -98,6 +128,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
           usersData: state.usersData,
           isSortedAlphabetic: state.isSortedAlphabetic,
           isSortedBySource: state.isSortedBySource,
+          backUpList: state.backupList,
         ),
       );
     }
